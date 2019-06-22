@@ -1,0 +1,57 @@
+UTF-8 is a variable width character encoding capable of encoding all 1,112,064[1] valid code points in Unicode using one to four 8-bit bytes.[2] The encoding is defined by the Unicode Standard, and was originally designed by Ken Thompson and Rob Pike.[3][4] The name is derived from Unicode (or Universal Coded Character Set) Transformation Format – 8-bit.[5]
+
+It was designed for backward compatibility with ASCII. Code points with lower numerical values, which tend to occur more frequently, are encoded using fewer bytes. The first 128 characters of Unicode, which correspond one-to-one with ASCII, are encoded using a single octet with the same binary value as ASCII, so that valid ASCII text is valid UTF-8-encoded Unicode as well. Since ASCII bytes do not occur when encoding non-ASCII code points into UTF-8, UTF-8 is safe to use within most programming and document languages that interpret certain ASCII characters in a special way, such as "/" (slash) in filenames, "\" (backslash) in escape sequences, and "%" in printf.
+Usage of the main encodings on the web from 2001 to 2012 as recorded by Google,[6] with UTF-8 overtaking all others in 2008 and over 60% of the web in 2012. Note that the ASCII-only figure includes all web pages that only contains ASCII characters, regardless of the declared header.
+
+Since 2009, UTF-8 has been the dominant encoding (of any kind, not just of Unicode encodings) for the World Wide Web (and declared mandatory "for all things" by WHATWG[7]) and as of June 2019 accounts for 93.6% of all web pages (some of which are simply ASCII, as it is a subset of UTF-8) and 95% of the top 1,000 highest ranked[8] web pages. The next-most popular multi-byte encodings, Shift JIS and GB 2312, have 0.4% and 0.3% respectively.[9][10][6] The Internet Mail Consortium (IMC) recommended that all e-mail programs be able to display and create mail using UTF-8,[11] and the W3C recommends UTF-8 as the default encoding in XML and HTML.[12] 
+
+യു.ടി.എഫ്-8
+വിക്കിപീഡിയ, ഒരു സ്വതന്ത്ര വിജ്ഞാനകോശം.
+Jump to navigation
+Jump to search
+ഇംഗ്ലീഷ് വിലാസം സഹായം
+പ്രദർശിപ്പിക്കുക
+യൂണികോഡിൽ ഉപയോഗിക്കുന്ന ഒരു എൻകോഡിങ്ങ് രീതിയാണ്‌ യു.ടി.എഫ്-8 (UTF-8)(8-bit UCS/Unicode Transformation Format). ഈ എൻകോഡിങ്ങ് രീതിയനുസരിച്ച് യൂണികോഡിലുള്ള ഏതു ചിഹ്നങ്ങളെയും സൂചിപ്പിക്കുവാൻ കഴിയും മാത്രവുമല്ല ഇത് ആസ്കി (ASCII) എൻകോഡിങ്ങിനെ ഉൾക്കൊള്ളുന്നുമുണ്ട്. അതിനാൽ തന്നെ കമ്പ്യൂട്ടർ വിവരസാങ്കേതിക രംഗത്ത് നിലവിൽ ഏറ്റവും സ്വീകാര്യമായ എ‌ൻകോഡിങ്ങ് രീതിയായി ഇത് മാറി. ഇ-മെയിൽ, വെബ് താളുകൾ,[1] തുടങ്ങി ക്യാരക്ടറുകൾ ശേഖരിക്കുകയും കൈമാറ്റം ചെയ്യുകയും ചെയ്യുന്ന മേഖലകളിൽ ഇത് ഉപയോഗിക്കപ്പെടുന്നു.
+യു.ടി.എഫ്-8 ൽ ഓരോ ചിഹ്നത്തെയും ഒന്നും മുതൽ നാല്‌ ഒക്ടെറ്റുകളിലായി (Octet, എട്ട് ബിറ്റുകളുടെ നിര അതായത് ഒരു ബൈറ്റ്) രേഖപ്പെടുത്തപ്പെടുന്നു. 128 യു.എസ്-ആസ്കി (US-ASCII) ക്യാരക്ടറുകൾ മാത്രമാണ്‌ ഒരു ബൈറ്റിലായി രേഖപ്പെടുത്തപ്പെടുന്നത്. മറ്റുള്ളവ രണ്ട് മുതൽ നാല്‌ ബൈറ്റുകളിലായി വിന്യസിക്കപ്പെടുന്ന. ഈ രീതിയിൽ മലയാളം ക്യാരക്ടറുകൾ രേഖപ്പെടുത്തുവാൻ മൂന്ന് ബൈറ്റുകൾ വീതം ആവശ്യമാണ്‌. 
+設計UTF-8的理由
+UTF-8的設計有以下的多字元組序列的特質：
+
+    單位元組字符的最高有效位元永遠為0。
+    多位元組序列中的首個字元組的幾個最高有效位元決定了序列的長度。最高有效位為110的是2位元組序列，而1110的是三位元組序列，如此類推。
+    多位元組序列中其餘的位元組中的首兩個最高有效位元為10。
+
+UTF-8的這些特質，保證了一個字符的字节序列不会包含在另一個字符的字节序列中。這確保了以位元組為基礎的部份字串比對（sub-string match）方法可以適用於在文字中搜尋字或詞。有些比較舊的可變長度8位元編碼（如Shift JIS）沒有這個特質，故字串比對的算法變得相當複雜。雖然這增加了UTF-8編碼的字串的信息冗餘，但是利多於弊。另外，資料壓縮並非Unicode的目的，所以不可混為一談。即使在傳送過程中有部份位元組因錯誤或干擾而完全遺失，還是有可能在下一個字符的起點重新同步，令受損範圍受到限制。
+
+另一方面，由於其位元組序列設計，如果一個疑似為字符串的序列被驗證為UTF-8編碼，那麼我們可以有把握地說它是UTF-8字符串。一段兩位元組隨機序列碰巧為合法的UTF-8而非ASCII的機率為32分1。對於三位元組序列的機率為256分1，對更長的序列的機率就更低了。
+
+یو ٹی ایف-8
+آزاد دائرۃ المعارف، ویکیپیڈیا سے
+Jump to navigation
+Jump to search
+یو ٹی ایف-8
+
+یو ٹی ایف-8 (UTF-8) ایک حرفی رمز بندی ہے جس یونیکوڈ سے معين کردہ تمام ممکنہ حروف کی رمز بندی کے قابل ہے۔ اس کا اصل ڈیزائن کین تھامپسن (Ken Thompson) اور روب پائیک (Rob Pike) نے کیا تھا۔[1]
+کوڈ پی
+
+ο UTF-8 (8-bit Unicode Transformation Format) είναι ένα μη-απωλεστικό σχήμα κωδικοποίησης χαρακτήρων μεταβλητού μήκους για το πρότυπο Unicode που δημιουργήθηκε από τους Ken Thompson και Rob Pike. Χρησιμοποιεί ομάδες από byte για να αναπαραστήσει τα κωδικά σημεία του Unicode. Είναι ιδιαίτερα χρήσιμο για μετάδοση δεδομένων σε 8bit συστήματα ηλεκτρονικού ταχυδρομείου.
+
+Συγκεκριμένα χρησιμοποιεί ένα μέχρι τέσσερα byte ανά χαρακτήρα ανάλογα με το σύμβολο και το κωδικό του σημείο. Για παράδειγμα χρειάζεται μόνο ένα byte του UTF-8 για την κωδικοποίηση των 128 ASCII χαρακτήρων στο διάστημα του Unicode U+0000 μέχρι U+007F.
+
+Τέσσερα byte μπορεί να φαίνονται πολλά για έναν χαρακτήρα (κωδικό σημείο), παρ'όλα αυτά αυτό αφορά μόνο κωδικά σημεία εκτός του Βασικού πολυγλωσσικού επιπέδου, τα οποία σπάνια χρησιμοποιούνται. Επίσης το UTF-16 (το κύριο εναλλακτικό σχήμα στο UTF-8) επίσης χρειάζεται τέσσερα byte για αυτά τα κωδικά σημεία. Το οποίο είναι πιο αποδοτικό το UTF-8 ή το UTF-16, εξαρτάται από το εύρος των κωδικών σημείων που θα χρησιμοποιηθούν. Οι διαφορές των δυο σχημάτων μπορούν όμως να γίνουν αμελητέες με την χρήση παραδοσιακών συστημάτων συμπίεσης όπως DEFLATE. Για μικρά κομμάτια κειμένου όπου οι παραδοσιακοί αλγόριθμοι δεν αποδίδουν καλά και όπου το μέγεθος του αρχείου μετράει μπορεί να χρησιμοποιηθεί και το Πρότυπο Σχήμα Συμπίεσης για Unicode.
+
+Η IETF (Internet Engineering Task Force) απαιτεί όλα τα πρωτόκολλα Διαδικτύου να αναγνωρίζουν και να υποστηρίζουν τουλάχιστον ως σχήμα κωδικοποίησης χαρακτήρων τουλάχιστον το UTF-8. 
+
+UTF-8 (от англ. Unicode Transformation Format, 8-bit — «формат преобразования Юникода, 8-бит») — распространённый стандарт кодирования текста, позволяющий более компактно хранить и передавать символы Юникода, используя переменное количество байт (от 1 до 4), и обеспечивающий полную обратную совместимость с 7-битной кодировкой ASCII. Стандарт UTF-8 официально закреплён в документах RFC 3629 и ISO/IEC 10646 Annex D. Кодировка UTF-8 сейчас является доминирующей в веб-пространстве. Она также нашла широкое применение в UNIX-подобных операционных системах[1]. Формат UTF-8 был разработан 2 сентября 1992 года Кеном Томпсоном и Робом Пайком, и реализован в Plan 9[2]. Идентификатор кодировки в Windows – 65001[3].
+
+Сравнивая UTF-8 и UTF-16, можно отметить, что наибольший выигрыш в компактности UTF-8 даёт для текстов на латинице, поскольку латинские буквы без диакритических знаков, цифры и наиболее распространённые знаки препинания кодируются в UTF-8 лишь одним байтом, и коды этих символов соответствуют их кодам в
+
+UTF-8（ユーティーエフはち、ユーティーエフエイト）はISO/IEC 10646 (UCS) とUnicodeで使える8ビット符号単位の文字符号化形式及び文字符号化スキーム。
+
+正式名称は、ISO/IEC 10646では “UCS Transformation Format 8”、Unicodeでは “Unicode Transformation Format-8” という。両者はISO/IEC 10646とUnicodeのコード重複範囲で互換性がある。RFCにも仕様がある[1]。
+
+2バイト目以降に「/」などのASCII文字が現れないように工夫されていることから、UTF-FSS (File System Safe) ともいわれる。旧名称はUTF-2。
+
+UTF-8は、データ交換方式・ファイル形式として一般的に使われる傾向にある。
+
+当初は、ベル研究所においてPlan 9で用いるエンコードとして、ロブ・パイクによる設計指針のもと、ケン・トンプソンによって考案された[2][3]。 
+

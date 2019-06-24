@@ -17,6 +17,45 @@
 // but it's faster and has been extended to include C0 80 as the
 // encoding for U+0000 
 
+/*
+digraph finite_state_machine {
+  rankdir=LR;
+  node [style = dashed]; LEN3; LEN4;
+  node [style = solid];
+  node [shape = ellipse]; START ;
+  node [shape = ellipse];
+
+  START -> END [ label = "00..00 / len=0" ];
+  START -> END [ label = "01..7F / len=1" ];
+  START -> NULL [ label = "C0..C0 / len=2" ];
+
+  START -> LEN2_0 [ label = "C2..DF / len=2" ];
+
+  START -> LEN3_0 [ label = "E0..E0 / len=3" ];
+  START -> LEN3_1 [ label = "E1..EC,EE..EF / len=3" ];
+  START -> LEN3_2 [ label = "ED..ED / len=3" ];
+
+  START -> LEN4_0  [ label = "F0..F0 / len=4" ];
+  START -> LEN4_1  [ label = "F1..F3 / len=4" ];
+  START -> LEN4_2  [ label = "F4..F4 / len=4" ];
+  
+  NULL -> END [label = "80..80" ];
+        
+  LEN2_0 -> END   [ label = "80..BF" ];
+
+  LEN3_0 -> LEN3  [ label = "A0..BF" ];
+  LEN3_1 -> LEN3  [ label = "80..BF" ];
+  LEN3_2 -> LEN3  [ label = "80..9F" ];
+  LEN3 -> LEN2_0 [style=dashed ];
+
+  LEN4_0 -> LEN4 [ label = "90..BF" ];
+  LEN4_1 -> LEN4 [ label = "80..BF" ];
+  LEN4_2 -> LEN4 [ label = "80..8F" ];
+
+  LEN4 -> LEN3_1 [style=dashed ];
+ }
+ */
+
 int u8next_(const char *txt, int *ch)
 {
   int len = 0;

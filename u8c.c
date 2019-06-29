@@ -5,6 +5,8 @@
 **  https://opensource.org/licenses/MIT
 **
 */
+#include <stdio.h>
+#include <string.h>
 
 #define fsm           goto fsm_state_START;
 #define fsmGOTO(x)    goto fsm_state_##x
@@ -17,7 +19,8 @@
 // but it's faster and has been extended to include C0 80 as the
 // encoding for U+0000 
 
-/*
+/* This is the FSM in dot vizgraph format:
+
 digraph finite_state_machine {
   rankdir=LR;
   node [style = dashed]; LEN3; LEN4;
@@ -180,9 +183,11 @@ int u8strlen(const char *s)
   return len;
 }
 
-int u8encode(char *s, int ch)
+int u8encode_(int ch, char *s)
 {
   int len = -1;
+  char t[8];
+  if (s == NULL) s = t;
   if (ch == 0) {
     len=2;
     *s++ = 0xC0;
@@ -211,4 +216,33 @@ int u8encode(char *s, int ch)
   }
   *s = '\0';
   return len;
+}
+
+char *u8strncpy(char *dest, const char *src, size_t n)
+{
+  int k = n-1;
+  int i;
+  if (n) {
+    dest[k] = 0;
+    strncpy(dest,src,n);
+    if (dest[k] & 0x80) { // Last byte has been overwritten
+      for (i=k; (i>0) && ((k-i) < 3) && ((dest[i] & 0xC0) == 0x80); i--) ;
+      switch(k-i) {
+        case 0:                                 dest[i] = '\0'; break;
+        case 1:  if ( (dest[i] & 0xE0) != 0xC0) dest[i] = '\0'; break;
+        case 2:  if ( (dest[i] & 0xF0) != 0xE0) dest[i] = '\0'; break;
+        case 3:  if ( (dest[i] & 0xF8) != 0xF0) dest[i] = '\0'; break;
+      }
+    }
+  }
+  return dest;
+}
+
+char *u8strncat(char *dest, const char *src, size_t n)
+{
+  char *d = dest;
+  while (*d) d++;
+  u8strncpy(d,src,n);
+  d[n] = '\0';
+  return dest;
 }

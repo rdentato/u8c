@@ -2,6 +2,19 @@
 
 Fast validating utf-8 encoder/decoder for C
 
+ The decoding function is based on the work of Bjoern Hoehrmann:
+    http://bjoern.hoehrmann.de/utf-8/decoder/dfa
+
+ with the following differences:
+   - the implementation is faster than what presented on the original site.
+   - the code is clearer to read and to relate to the state machines
+   - it has been extended to include C0 80 as the encoding for U+0000.
+     (see https://en.wikipedia.org/wiki/UTF-8#Modified_UTF-8 )
+     and treats '\0' as the string terminator.
+
+ To use it, include u8c.h in your code and link against u8c.c
+
+
 ## API
 
 ```
@@ -22,18 +35,22 @@ Fast validating utf-8 encoder/decoder for C
                                     place a string terminator ('\0') at the end.
                                     There must be *at least* 5 bytes allocated in the
                                     string s.
+ 	
+  The following functions are the counterpart of the C standard functions
+
+ char *u8strcat(char *d, char *s)
+ char *u8strchr(char *str, int c)
+ int   u8strcmp(char *str1, const char *str2)  
+ int   u8strncmp(const char *str1, const char *str2, size_t n) -> 'n' the size of the buffer in bytes
+ char *u8strcpy(char *dest, const char *src)
+ char *u8strstr(const char *haystack, const char *needle)
+
+ These two functions will ensure the last codepoint is not broken
+
+ char *u8strncat(char *dest, const char *src, size_t n) -> 'n' is the buffer size in bytes
+ char *u8strncpy(char *dest, const char *src, size_t n) -> 'n' is the buffer size in bytes
  
- The decoding function is based on the work of Bjoern Hoehrmann:
-    http://bjoern.hoehrmann.de/utf-8/decoder/dfa
 
- with the following differences:
-   - the implementation is faster than what presented on the original site.
-   - the code is clearer to read and to relate to the state machines
-   - it has been extended to include C0 80 as the encoding for U+0000.
-     (see https://en.wikipedia.org/wiki/UTF-8#Modified_UTF-8 )
-     and treats '\0' as the string terminator.
-
- To use it, include u8c.h in your code and link against u8c.c
 ```
 ##  Compatibility with standard C functions
 
@@ -41,27 +58,6 @@ Strings encoded with UTF-8 are mostly compatible with the functions in
 the standard C library:
 
 ```
-strcpy()        Fully compatible.
-  
-strcat()        Fully compatible.
-  
-strstr()        Fully compatible.
-  
-strcmp()        Fully compatible (will return ordering based on the codepoints).
-  
-strchr()        Only works for ASCII codes (01..7F). Use strstr() instead.
-  
-strncat()       The length parameter 'n' is in byte. You must ensure the string
-                is not split in the middle of a codepoint.
-  
-strncmp()       The length parameter 'n' is in byte. You must ensure the string
-                is not split in the middle of a codepoint.
-  
-strncpy()       The length parameter 'n' is in byte. You must ensure the string
-                is not split in the middle of a codepoint.
-  
-strlen()        Will return the size of the string in bytes.
-  
 strtok()        Only works for delimiters with ASCII codes (01..7F).
   
 strcspn()       Only works for ASCII codes (01..7F).

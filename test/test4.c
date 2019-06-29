@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
  
     l=u8next(s1,&c);
     dbgchk(l == k+1,"Expected length: %d, got %d",k+1,l);
-    l2=u8encode(buf,c);
+    l2=u8encode(c,buf);
     dbgchk(l == l2,"Length should be %d, got %d",l,l2);
     dbgchk(strncmp(s1,buf,l) == 0,"Encoding error");
     dbgblk ({

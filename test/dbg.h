@@ -48,7 +48,7 @@
                         fprintf(stderr," \x9%s:%d\n",__FILE__,__LINE__), \
                         fflush(stderr)))
 #define dbg0(x,...)   (x)
-#define dbgchk(e,...)  do {int e_=!(e); \
+#define dbgchk(e,...)  do {int e_=!(e); errno = 0;\
                           fflush(stdout); /* Ensure dbg message appears *after* pending stdout prints */ \
                           fprintf(stderr,"%s: (%s) \x9%s:%d\n",(e_?"FAIL":"PASS"),#e,__FILE__,__LINE__); \
                           if (e_ && *(dbgexp(dbg0(__VA_ARGS__)))) {  \

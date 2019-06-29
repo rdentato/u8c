@@ -8,8 +8,7 @@ int  cp[] = {0x41, 0xE8, 0x4F1A, 0x27000 };
 
 int main(int argc, char *argv[])
 {
-  int k;
-  char buf[8];
+  char buf[8+1]; // Pretend it's just 8 bytes long!
   char *t="kk2";
 
   strcpy(buf,"ab");
@@ -23,11 +22,12 @@ int main(int argc, char *argv[])
   dbgchk(strncmp(buf,"abcdef",6) == 0,"strcpy/cat error!! '%s'",buf);
   dbgchk(buf[6] == '\0',"strncat() does not terminate");
 
-  buf[7] = 'B';
+  buf[8] = 'B';
   strcpy(buf,"abcd");
   if (argc < 100)  t = "efgh";
   strncat(buf,t,4);
   dbgchk(strncmp(buf,"abcdefgh",8) == 0,"strcpy/cat error!! '%s'",buf);
+  dbgchk(buf[8] == '\0',"strncat() did not null terminate");
 
   u8strcpy(buf,"ab");
   u8strcat(buf,"cd");

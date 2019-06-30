@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
   int ret;
   int cs, ct;
   char *s, *t;
+  char buf[10];
 
   dbgmsg("TEST: Latin");
   s="ABC"; t="ABC";
@@ -50,7 +51,11 @@ int main(int argc, char *argv[])
   ret = u8stricmp(s,t);
   dbgchk(ret == 0,"'%s' != '%s'",s,t);
 
-  "pippo\U002301topolino"
+  u8encode(0x2031,buf);
+  cs = u8codepoint(buf);
+  dbgchk(cs == 0x2031,"Wrong encoding!");
+  t = "\u2031";
+  dbgchk(strcmp(t,buf)==0,"\\u failed %02X %02x",t[0],t[1]);
 
   return 0;
 }

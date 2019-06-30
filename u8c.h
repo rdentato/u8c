@@ -52,6 +52,7 @@ int u8next_(const char *txt, int *ch);
 
 int u8encode_(int ch, char *s);
 
+#define u8decode u8next
 
 static inline int u8codepoint(char *s) {int c; (void)u8next_(s, &c); return c;}
 

@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
   ret = u8stricmp(s,t);
   dbgchk(ret == 0,"'%s' != '%s'",s,t);
 
+  "pippo\U002301topolino"
 
   return 0;
 }

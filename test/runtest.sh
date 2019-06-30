@@ -6,7 +6,8 @@ rm dbgstat.c
 
 for f in test*.c; do
   echo "compiling '$f'"
-  ${CC:-gcc} -DDEBUG -std=c99 -O2 -Wall -I.. -o ut_${f%.c} $f ../u8c.c
+  ${CC:-gcc} -DDEBUG -std=c99 -O2 -Wall -I.. -c $f
+  ${CC:-gcc} -o ut_${f%.c} ${f%.c}.o ../u8c.o 
 done
 
 rm -f runtest.log

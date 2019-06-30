@@ -72,6 +72,10 @@ static inline int u8codepoint(char *s) {int c; (void)u8next_(s, &c); return c;}
 char *u8strncpy(char *dest, const char *src, size_t n);
 char *u8strncat(char *dest, const char *src, size_t n);
 
+int u8stricmp(char *s, char *t);
+
+int u8fold(int cp);
+
 /* **** DO NOT USE!! IT'S HERE FOR DEVELOPMENTE PURPOSE ONLY */
 int u8next_FAST(const char *txt, int *ch);
 

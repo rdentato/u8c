@@ -7,6 +7,8 @@
 */
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
+#include "u8c.h"
 
 #define fsm           goto fsm_state_START;
 #define fsmGOTO(x)    goto fsm_state_##x

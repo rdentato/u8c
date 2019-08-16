@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
   }
 
   printf("FAIL: %d\nPASS: %d\n",n_fail,n_pass);
-  exit(n_fail != 0);
+  exit(n_fail != 0 || n_pass == 0);
 }
 
 #endif // DBGSTAT
